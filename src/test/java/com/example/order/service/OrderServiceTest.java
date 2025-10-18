@@ -41,8 +41,9 @@ public class OrderServiceTest {
         Integer newOrderId = 1;
         Userdto userDTO = new Userdto();
         Order orderToBeSaved = new Order(newOrderId, orderDetails.getFooditemlist(), orderDetails.getRestaurant(), userDTO);
-      OrderDto orderDTOExpected = OrderMapper.INSTANCE.mapOrderToOrderDto(orderToBeSaved);
-
+      OrderDto orderDTOExpect = OrderMapper.INSTANCE.mapOrderToOrderDto(orderToBeSaved);
+        Order orderExpect = OrderMapper.INSTANCE.mapOrderDToToOrder(orderDTOExpect);
+        OrderDto orderDTOExpected = OrderMapper.INSTANCE.mapOrderToOrderDto(orderToBeSaved);
         when(sequenceGenerator.genrateNextOrderId()).thenReturn(newOrderId);
         when(restTemplate.getForObject(anyString(), eq(Userdto.class))).thenReturn(userDTO);
         when(orderRepo.save(orderToBeSaved)).thenReturn(orderToBeSaved);
